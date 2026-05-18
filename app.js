@@ -37,6 +37,11 @@ const BUILDER_SLOTS = ['CPU', 'GPU', 'Motherboard', 'RAM', 'PSU', 'Case'];
 
 let cart      = [];
 let wishlist  = [];
+let activeVoucher = null;
+const voucherRules = {
+  SAVE10: { name: 'SAVE10', description: '10% off your cart total', type: 'percent', value: 10 },
+  PC5OFF: { name: 'PC5OFF', description: '$5 off orders over $50', type: 'flat', value: 5, minTotal: 50 }
+};
 let builderState = { CPU: null, GPU: null, Motherboard: null, RAM: null, PSU: null, Case: null };
 
 function showPage(name) {
@@ -77,6 +82,48 @@ function updateBadges() {
   wc.classList.toggle('visible', wishlist.length > 0);
 }
 
+function getVoucherDiscount(subtotal) {
+  if (!activeVoucher) return 0;
+  if (activeVoucher.type === 'percent') {
+    return +(subtotal * activeVoucher.value / 100).toFixed(2);
+  }
+  if (activeVoucher.type === 'flat') {
+    return Math.min(activeVoucher.value, subtotal);
+  }
+  return 0;
+}
+
+function applyVoucher() {
+  const code = document.getElementById('voucher-code')?.value.trim().toUpperCase();
+  if (!code) {
+    showToast('Enter a voucher code to apply.');
+    return;
+  }
+
+  const voucher = voucherRules[code];
+  if (!voucher) {
+    showToast('That voucher code is not valid.');
+    return;
+  }
+
+  const subtotal = cart.reduce((sum, i) => sum + ((i.unitPrice || i.price) * (i.quantity || 1)), 0);
+  if (voucher.minTotal && subtotal < voucher.minTotal) {
+    showToast(`Add $${(voucher.minTotal - subtotal).toFixed(2)} more to use ${code}.`);
+    return;
+  }
+
+  activeVoucher = voucher;
+  showToast(`Voucher ${code} applied! ${voucher.description}`);
+  renderCart();
+}
+
+function clearVoucher() {
+  if (!activeVoucher) return;
+  activeVoucher = null;
+  showToast('Voucher removed.');
+  renderCart();
+}
+
 function addToCart(item) {
   cart.push({ ...item, cartId: Date.now() + '_' + Math.random(), quantity: 1, notes: '', unitPrice: item.price });
   updateBadges();
@@ -100,7 +147,9 @@ function renderCart() {
     return;
   }
 
-  const total = cart.reduce((sum, i) => sum + ((i.unitPrice || i.price) * (i.quantity || 1)), 0);
+  const subtotal = cart.reduce((sum, i) => sum + ((i.unitPrice || i.price) * (i.quantity || 1)), 0);
+  const discount = getVoucherDiscount(subtotal);
+  const total = Math.max(0, subtotal - discount);
   el.innerHTML = `
     <div>
       ${cart.map(i => {
@@ -121,6 +170,20 @@ function renderCart() {
       }).join('')}
     </div>
     <div class="cart-total-box">
+      <div class="summary-total">
+        <span>Subtotal</span>
+        <span>$${subtotal.toFixed(2)}</span>
+      </div>
+      ${activeVoucher ? `
+      <div class="summary-total">
+        <span>${activeVoucher.name} discount</span>
+        <span>-$${discount.toFixed(2)}</span>
+      </div>
+      <div class="summary-total" style="font-size:0.95rem;color:var(--text-secondary);gap:0.5rem;">
+        <span>Voucher applied</span>
+        <button class="btn btn-secondary btn-sm" onclick="clearVoucher()">Remove</button>
+      </div>
+      ` : ''}
       <div class="summary-total">
         <span>Total</span>
         <span class="text-gradient">$${total.toFixed(2)}</span>
@@ -579,7 +642,9 @@ function clearCart() {
 }
 
 function getCartTotal() {
-  return cart.reduce((sum, i) => sum + ((i.unitPrice || i.price) * (i.quantity || 1)), 0);
+  const subtotal = cart.reduce((sum, i) => sum + ((i.unitPrice || i.price) * (i.quantity || 1)), 0);
+  const discount = getVoucherDiscount(subtotal);
+  return Math.max(0, subtotal - discount);
 }
 
 // ═══════════════════════════════════════════════
