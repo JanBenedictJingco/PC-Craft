@@ -19,18 +19,18 @@ const prebuiltPCs = [
 ];
 
 const pcParts = [
-  { id: 'cpu1', category: 'CPU',         name: 'AMD Ryzen 7 7800X3D',         price: 399.99,  specs: '8 Cores, 16 Threads, 5.0 GHz Max Boost' },
-  { id: 'cpu2', category: 'CPU',         name: 'Intel Core i7-13700K',         price: 409.99,  specs: '16 Cores, 24 Threads, 5.4 GHz Max Boost' },
-  { id: 'gpu1', category: 'GPU',         name: 'NVIDIA GeForce RTX 4080 Super',price: 999.99,  specs: '16GB GDDR6X, 2550 MHz Core Clock' },
-  { id: 'gpu2', category: 'GPU',         name: 'AMD Radeon RX 7900 XTX',       price: 949.99,  specs: '24GB GDDR6, 2500 MHz Core Clock' },
-  { id: 'mb1',  category: 'Motherboard', name: 'ASUS ROG Strix B650E-F',       price: 259.99,  specs: 'AM5 Socket, ATX, PCIe 5.0' },
-  { id: 'mb2',  category: 'Motherboard', name: 'MSI MAG Z790 Tomahawk',        price: 239.99,  specs: 'LGA 1700 Socket, ATX, DDR5' },
-  { id: 'ram1', category: 'RAM',         name: 'Corsair Vengeance RGB 32GB',   price: 119.99,  specs: 'DDR5-6000, CL30, 2×16GB' },
-  { id: 'ram2', category: 'RAM',         name: 'G.Skill Trident Z5 Neo 64GB',  price: 214.99,  specs: 'DDR5-6000, CL30, 2×32GB' },
-  { id: 'psu1', category: 'PSU',         name: 'Corsair RM850x',               price: 134.99,  specs: '850W, 80+ Gold, Fully Modular' },
-  { id: 'psu2', category: 'PSU',         name: 'SeaSonic FOCUS GX-1000',       price: 169.99,  specs: '1000W, 80+ Gold, Fully Modular' },
-  { id: 'cs1',  category: 'Case',        name: 'Fractal Design North',         price: 139.99,  specs: 'Mid Tower, ATX, Wood Front Panel' },
-  { id: 'cs2',  category: 'Case',        name: 'Lian Li O11 Dynamic EVO',      price: 159.99,  specs: 'Mid Tower, ATX, Dual Chamber' }
+  { id: 'cpu1', category: 'CPU',         name: 'AMD Ryzen 7 7800X3D',         price: 399.99,  specs: '8 Cores, 16 Threads, 5.0 GHz Max Boost', image: 'Pictures/amd-ryzen-7-7800x3d-am5-without-cooler-tray-type.png' },
+  { id: 'cpu2', category: 'CPU',         name: 'Intel Core i7-13700K',         price: 409.99,  specs: '16 Cores, 24 Threads, 5.4 GHz Max Boost', image: 'Pictures/intel%20core%20i7%2013k.png' },
+  { id: 'gpu1', category: 'GPU',         name: 'NVIDIA GeForce RTX 4080 Super',price: 999.99,  specs: '16GB GDDR6X, 2550 MHz Core Clock', image: 'Pictures/NVIDIA%20GeForce%20RTX%204080%20Super.png' },
+  { id: 'gpu2', category: 'GPU',         name: 'AMD Radeon RX 7900 XTX',       price: 949.99,  specs: '24GB GDDR6, 2500 MHz Core Clock', image: 'Pictures/AMD%20Radeon%20RX%207900%20XTX.png' },
+  { id: 'mb1',  category: 'Motherboard', name: 'ASUS ROG Strix B650E-F',       price: 259.99,  specs: 'AM5 Socket, ATX, PCIe 5.0', image: 'Pictures/ASUS%20ROG%20Strix%20B650E-F.png' },
+  { id: 'mb2',  category: 'Motherboard', name: 'MSI MAG Z790 Tomahawk',        price: 239.99,  specs: 'LGA 1700 Socket, ATX, DDR5', image: 'Pictures/MSI%20MAG%20Z790%20Tomahawk.png' },
+  { id: 'ram1', category: 'RAM',         name: 'Corsair Vengeance RGB 32GB',   price: 119.99,  specs: 'DDR5-6000, CL30, 2×16GB', image: 'Pictures/Corsair%20Vengeance%20RGB%2032GB.png' },
+  { id: 'ram2', category: 'RAM',         name: 'G.Skill Trident Z5 Neo 64GB',  price: 214.99,  specs: 'DDR5-6000, CL30, 2×32GB', image: 'Pictures/G.Skill%20Trident%20Z5%20Neo%2064GB.png' },
+  { id: 'psu1', category: 'PSU',         name: 'Corsair RM850x',               price: 134.99,  specs: '850W, 80+ Gold, Fully Modular', image: 'Pictures/Corsair%20RM850x.png' },
+  { id: 'psu2', category: 'PSU',         name: 'SeaSonic FOCUS GX-1000',       price: 169.99,  specs: '1000W, 80+ Gold, Fully Modular', image: 'Pictures/SeaSonic%20FOCUS%20GX-1000.png' },
+  { id: 'cs1',  category: 'Case',        name: 'Fractal Design North',         price: 139.99,  specs: 'Mid Tower, ATX, Wood Front Panel', image: 'Pictures/Fractal%20Design%20North.png' },
+  { id: 'cs2',  category: 'Case',        name: 'Lian Li O11 Dynamic EVO',      price: 159.99,  specs: 'Mid Tower, ATX, Dual Chamber', image: 'Pictures/Lian%20Li%20O11%20Dynamic%20EVO.png' }
 ];
 
 const BUILDER_SLOTS = ['CPU', 'GPU', 'Motherboard', 'RAM', 'PSU', 'Case'];
@@ -283,6 +283,9 @@ function renderParts() {
     const safe = JSON.stringify(part).replace(/'/g, "\\'");
     return `
     <div class="card animate-fade-in">
+      <div class="card-img-wrapper" style="margin-bottom:1rem">
+        <img class="card-img" src="${part.image}" alt="${part.name}" loading="lazy" />
+      </div>
       <span class="badge" style="align-self:flex-start;margin-bottom:1rem">${part.category}</span>
       <h4 style="font-size:1rem;margin-bottom:0.5rem;min-height:2.8rem">${part.name}</h4>
       <p class="text-secondary" style="font-size:0.85rem;flex:1;margin-bottom:1.5rem;line-height:1.5">${part.specs}</p>
