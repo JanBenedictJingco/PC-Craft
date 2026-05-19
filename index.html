@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PC-Craft — Build Your Dream Machine</title>
+  <link rel="icon" type="image/png" href="Favicon PC Craft .png" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -196,7 +197,21 @@
 <div id="toast"></div>
 
 <footer>
-  <p>© 2026 PC-Craft. All rights reserved.</p>
+  <div class="footer-grid container">
+    <div class="footer-left">
+      <div class="footer-links">
+        <button onclick="showPage('home')">Home</button>
+        <button onclick="showPage('prebuilts')">Prebuilt PCs</button>
+        <button onclick="showPage('builder')">Custom Builder</button>
+        <button onclick="showPage('parts')">Components</button>
+      </div>
+      <p class="footer-copy">© 2026 PC-Craft. All rights reserved.</p>
+    </div>
+    <div class="footer-brand">
+      <img src="LOGO PC CRAFT WHITE.png" alt="PC Craft logo" class="footer-logo" />
+      <p class="footer-tagline">Craft Your Ultimate Dream Machine</p>
+    </div>
+  </div>
 </footer>
 
 <script src="app.js"></script>
