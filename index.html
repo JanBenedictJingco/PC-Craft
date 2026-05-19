@@ -12,25 +12,7 @@
   <div class="container nav-inner">
 
     <div class="logo" onclick="showPage('home')">
-      
-      <svg width="32" height="32" fill="none" stroke="url(#lg)" stroke-width="1.5" viewBox="0 0 24 24">
-        <defs>
-          <linearGradient id="lg" x1="0" y1="0" x2="24" y2="24">
-            <stop stop-color="#3b82f6"/><stop offset="1" stop-color="#8b5cf6"/>
-          </linearGradient>
-        </defs>
-        <rect x="4" y="4" width="16" height="16" rx="2"/>
-        <rect x="9" y="9" width="6" height="6"/>
-        <line x1="9"  y1="1"  x2="9"  y2="4"/>
-        <line x1="15" y1="1"  x2="15" y2="4"/>
-        <line x1="9"  y1="20" x2="9"  y2="23"/>
-        <line x1="15" y1="20" x2="15" y2="23"/>
-        <line x1="20" y1="9"  x2="23" y2="9"/>
-        <line x1="20" y1="14" x2="23" y2="14"/>
-        <line x1="1"  y1="9"  x2="4"  y2="9"/>
-        <line x1="1"  y1="14" x2="4"  y2="14"/>
-      </svg>
-      PC<span class="text-gradient">-Craft</span>
+      <img src="LOGO PC CRAFT WHITE.png" alt="PC Craft logo" class="logo-img" />
     </div>
 
     <div class="nav-links">
@@ -65,36 +47,37 @@
 <div id="page-home" class="page active">
 
   <section class="hero">
-    <div class="container">
-      <h1 class="animate-fade-in">
-        Craft Your Ultimate <span class="text-gradient">Dream Machine</span>
-      </h1>
-      <p class="animate-fade-in">
-        Whether you're building from scratch or looking for a ready-made powerhouse,
-        PC-Craft has everything you need to ascend to the next level of computing.
-      </p>
-      <div class="hero-actions animate-fade-in">
-        <button class="btn btn-primary" onclick="showPage('builder')">
-          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/>
-          </svg>
+    <div class="container hero-grid">
+      <div class="ad-carousel animate-fade-in">
+        <div class="carousel-slides" id="carousel-slides">
+          <div class="carousel-slide active">
+            <img src="Banners/Desktop_Banner_D1_1920x_8e22fa3b-5d29-4875-bf43-20a6776e55fe_1920x.png" alt="PC ad slide 1" />
+          </div>
+          <div class="carousel-slide">
+            <img src="Banners/AMD_Ryzen_9950X3D2_PCX_1800x600px_1_1920x.png" alt="PC ad slide 2" />
+          </div>
+          <div class="carousel-slide">
+            <img src="Banners/AMD_Website_Crimson_Desert_1920x.png" alt="PC ad slide 3" />
+          </div>
+          <div class="carousel-slide">
+            <img src="Banners/1885x424px-PBA-Banner_1920x.png" alt="PC ad slide 4" />
+          </div>
+          <div class="carousel-slide">
+            <img src="Banners/viber_image_2025-07-03_13-40-54-866_1920x.png" alt="PC ad slide 5" />
+          </div>
+        </div>
+        <div class="carousel-dots" id="carousel-dots">
+          <button class="carousel-dot active" onclick="switchSlide(0)"></button>
+          <button class="carousel-dot" onclick="switchSlide(1)"></button>
+          <button class="carousel-dot" onclick="switchSlide(2)"></button>
+          <button class="carousel-dot" onclick="switchSlide(3)"></button>
+          <button class="carousel-dot" onclick="switchSlide(4)"></button>
+        </div>
+      </div>
+      <div class="carousel-action">
+        <button class="btn btn-primary btn-large" onclick="showPage('builder')">
           Start Custom Builder
         </button>
-        <button class="btn btn-secondary" onclick="showPage('prebuilts')">
-          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/>
-          </svg>
-          Shop Pre-builts
-        </button>
-      </div>
-      <div class="voucher-panel animate-fade-in">
-        <div class="voucher-copy">
-          <p>Unlock instant savings with a voucher code. Try <strong>SAVE10</strong> for 10% off or <strong>PC5OFF</strong> for $5 off orders over $50.</p>
-        </div>
-        <div class="voucher-input-row">
-          <input type="text" id="voucher-code" placeholder="Enter voucher code" aria-label="Voucher code" />
-          <button class="btn btn-secondary" onclick="applyVoucher()">Apply Voucher</button>
-        </div>
       </div>
     </div>
   </section>
@@ -102,6 +85,18 @@
   <section class="section container">
     <h2 class="section-heading">Featured <span class="text-gradient">Pre-builts</span></h2>
     <div class="grid grid-cols-3" id="home-prebuilts"></div>
+  </section>
+
+  <section class="section container">
+    <div class="voucher-panel animate-fade-in">
+      <div class="voucher-copy">
+        <p>Unlock instant savings with a voucher code. Try <strong>SAVE10</strong> for 10% off or <strong>PC5OFF</strong> for $5 off orders over $50.</p>
+      </div>
+      <div class="voucher-input-row">
+        <input type="text" id="voucher-code" placeholder="Enter voucher code" aria-label="Voucher code" />
+        <button class="btn btn-secondary" onclick="applyVoucher()">Apply Voucher</button>
+      </div>
+    </div>
   </section>
 
 </div>

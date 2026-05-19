@@ -73,6 +73,27 @@ function showToast(msg) {
   toastTimer = setTimeout(() => t.classList.remove('show'), 2800);
 }
 
+let carouselIndex = 0;
+let carouselTimer = null;
+const carouselInterval = 6000;
+
+function switchSlide(index) {
+  const slides = document.querySelectorAll('.carousel-slide');
+  const dots   = document.querySelectorAll('.carousel-dot');
+  if (!slides.length) return;
+  carouselIndex = (index + slides.length) % slides.length;
+  slides.forEach((slide, idx) => slide.classList.toggle('active', idx === carouselIndex));
+  dots.forEach((dot, idx) => dot.classList.toggle('active', idx === carouselIndex));
+}
+
+function startCarousel() {
+  const slides = document.querySelectorAll('.carousel-slide');
+  if (!slides.length) return;
+  switchSlide(0);
+  if (carouselTimer) clearInterval(carouselTimer);
+  carouselTimer = setInterval(() => switchSlide(carouselIndex + 1), carouselInterval);
+}
+
 function updateBadges() {
   const cc = document.getElementById('cart-count');
   const wc = document.getElementById('wish-count');
@@ -729,4 +750,5 @@ document.addEventListener('DOMContentLoaded', () => {
   renderHome();
   renderPrebuilts();
   renderBuilder();
+  startCarousel();
 });
